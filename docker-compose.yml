@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  #mongodb services
+  mongo_db:
+    image: mongo:latest
+    ports:
+      - $MONGODB_PORT:27017
+    volumes:
+      - mongo_db:/data/db
+  #node service
+  backend:
+    env_file:
+      - .env
+    ports:
+      - $PORT:3000
+    depends_on:
+      - mongo_db
+
+volumes:
+  mongo_db: {}
